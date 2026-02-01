@@ -1,0 +1,23 @@
+PLACEHOLDER ICON FILE
+
+This is a placeholder for the application icon (icon.ico).
+
+To complete the build configuration, you need to:
+
+1. Create or obtain a proper application icon in ICO format
+2. Name it "icon.ico"
+3. Place it in this directory (build/)
+4. The icon should contain multiple resolutions: 16x16, 32x32, 48x48, 64x64, 128x128, 256x256
+
+Recommended icon design:
+- Theme: Pomodoro timer (tomato + clock elements)
+- Style: Modern, minimalist
+- Colors: Red/orange for tomato, with clean lines
+- Ensure it's recognizable at small sizes
+
+You can use online tools or design software to create the icon:
+- Online: https://www.icoconverter.com/
+- Software: Adobe Photoshop, GIMP, Inkscape
+
+Until a proper icon is provided, electron-builder will use a default icon,
+but this may trigger warnings during the build process.

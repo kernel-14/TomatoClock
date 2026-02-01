@@ -1,0 +1,147 @@
+{
+  "name": "pomodoro-timer",
+  "version": "1.0.0",
+  "description": "A Windows desktop floating window Pomodoro timer application",
+  "main": "dist-electron/main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run build:renderer && npm run build:electron",
+    "build:renderer": "vite build",
+    "build:electron": "tsc -p tsconfig.node.json",
+    "build:win": "npm run build && electron-builder --win",
+    "build:win:portable": "npm run build && electron-builder --win portable",
+    "build:win:nsis": "npm run build && electron-builder --win nsis",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier --write \"src/**/*.{ts,tsx,json,css}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,json,css}\"",
+    "electron:dev": "concurrently \"vite\" \"wait-on http://localhost:5173 && electron .\"",
+    "electron:build": "npm run build:electron && electron-builder",
+    "pack": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder",
+    "validate:build": "node scripts/validate-build-config.js",
+    "prebuild:win": "npm run validate:build"
+  },
+  "keywords": [
+    "pomodoro",
+    "timer",
+    "productivity",
+    "electron",
+    "desktop"
+  ],
+  "author": {
+    "name": "Pomodoro Timer Team",
+    "email": "support@pomodoro-timer.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "better-sqlite3": "^9.2.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/better-sqlite3": "^7.6.8",
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/ui": "^1.0.4",
+    "autoprefixer": "^10.4.16",
+    "concurrently": "^8.2.2",
+    "electron": "^28.3.3",
+    "electron-builder": "^24.9.1",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "fast-check": "^3.15.0",
+    "happy-dom": "^20.4.0",
+    "jsdom": "^27.4.0",
+    "postcss": "^8.4.32",
+    "prettier": "^3.1.1",
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8",
+    "vite-plugin-electron": "^0.28.2",
+    "vite-plugin-electron-renderer": "^0.14.5",
+    "vitest": "^1.0.4",
+    "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "com.pomodoro.timer",
+    "productName": "Pomodoro Timer",
+    "copyright": "Copyright © 2024 Pomodoro Timer Team",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "package.json"
+    ],
+    "extraMetadata": {
+      "main": "dist-electron/main.js"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "${productName}-${version}-${arch}.${ext}",
+      "publisherName": "Pomodoro Timer Team",
+      "verifyUpdateCodeSignature": false,
+      "sign": null,
+      "signingHashAlgorithms": [],
+      "fileAssociations": []
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "allowElevation": true,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Pomodoro Timer",
+      "perMachine": false,
+      "deleteAppDataOnUninstall": false,
+      "runAfterFinish": true,
+      "license": "LICENSE",
+      "language": "2052",
+      "installerLanguages": [
+        "en_US",
+        "zh_CN"
+      ],
+      "include": null,
+      "warningsAsErrors": false
+    },
+    "portable": {
+      "artifactName": "${productName}-${version}-portable.${ext}"
+    },
+    "compression": "normal",
+    "asar": true,
+    "asarUnpack": [
+      "**/*.node"
+    ]
+  }
+}

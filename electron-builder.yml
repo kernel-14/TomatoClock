@@ -1,0 +1,56 @@
+appId: com.pomodoro.timer
+productName: Pomodoro Timer
+copyright: Copyright © 2024 Pomodoro Timer Team
+
+directories:
+  output: release
+  buildResources: build
+
+files:
+  - dist/**/*
+  - dist-electron/**/*
+  - package.json
+
+extraMetadata:
+  main: dist-electron/main.js
+
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+    - target: portable
+      arch:
+        - x64
+  icon: build/icon.ico
+  artifactName: ${productName}-${version}-${arch}.${ext}
+  publisherName: Pomodoro Timer Team
+  verifyUpdateCodeSignature: false
+  fileAssociations: []
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  allowElevation: true
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+  installerHeaderIcon: build/icon.ico
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Pomodoro Timer
+  perMachine: false
+  deleteAppDataOnUninstall: false
+  runAfterFinish: true
+  license: LICENSE
+  language: "2052"
+  installerLanguages:
+    - en_US
+    - zh_CN
+
+portable:
+  artifactName: ${productName}-${version}-portable.${ext}
+
+compression: normal
+asar: true
+asarUnpack:
+  - "**/*.node"

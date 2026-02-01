@@ -1,0 +1,119 @@
+/**
+ * Main application styles
+ * Implements floating island design with smooth transitions
+ */
+
+.app-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-app-region: drag; /* Make window draggable */
+}
+
+.floating-window {
+  width: 100%;
+  max-width: 420px;
+  min-height: 400px;
+  max-height: 90vh;
+  padding: 0 8px;
+  -webkit-app-region: no-drag; /* Prevent dragging on content */
+  
+  /* Floating island effect */
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.15),
+    0 10px 30px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  
+  /* Smooth transitions */
+  transition: 
+    opacity 0.3s ease-in-out,
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+}
+
+/* Responsive adjustments for smaller windows */
+@media (max-width: 400px) {
+  .floating-window {
+    width: 100%;
+    padding: 0 4px;
+  }
+}
+
+.floating-window:hover {
+  box-shadow: 
+    0 25px 70px rgba(0, 0, 0, 0.2),
+    0 15px 40px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+  transform: translateY(-2px);
+}
+
+/* Navigation bar */
+.nav-bar {
+  -webkit-app-region: no-drag;
+}
+
+.nav-bar button {
+  -webkit-app-region: no-drag;
+  cursor: pointer;
+}
+
+/* Content area */
+.content-area {
+  -webkit-app-region: no-drag;
+  max-height: calc(90vh - 48px);
+  overflow-y: auto;
+}
+
+/* Custom scrollbar */
+.content-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+.content-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.content-area::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.content-area::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Opacity transitions for window focus states */
+.app-container.window-blurred .floating-window {
+  opacity: 0.9;
+}
+
+.app-container.window-focused .floating-window {
+  opacity: 1;
+}
+
+/* Smooth animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.floating-window {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Ensure all interactive elements are not draggable */
+button,
+input,
+select,
+textarea,
+a {
+  -webkit-app-region: no-drag;
+}
